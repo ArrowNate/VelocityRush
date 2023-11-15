@@ -2634,13 +2634,14 @@ GameObject:
   - component: {fileID: 1775480923}
   - component: {fileID: 1775480922}
   - component: {fileID: 1775480921}
+  - component: {fileID: 1775480925}
   m_Layer: 0
   m_Name: Lap Complete Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1775480921
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2727,6 +2728,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1775480925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775480920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3235f1d4067f6404fbb7f80d03cb3152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lapCompleteTrigger: {fileID: 1775480920}
+  halfLapTrigger: {fileID: 889160959}
+  minuteDisplay: {fileID: 177015370}
+  secondDisplay: {fileID: 1220464995}
+  millisecondDisplay: {fileID: 1280351177}
+  bestLapTimeDisplay: {fileID: 0}
 --- !u!1 &1809923950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,6 +2884,7 @@ MonoBehaviour:
   minuteBox: {fileID: 177015370}
   secondBox: {fileID: 1220464995}
   milliSecondBox: {fileID: 1280351177}
+  bestLapTimeBox: {fileID: 0}
 --- !u!4 &2042679712
 Transform:
   m_ObjectHideFlags: 0
