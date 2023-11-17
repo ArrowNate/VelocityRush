@@ -11,6 +11,8 @@ public class Countdown : MonoBehaviour
     [SerializeField] private AudioSource getReady;
     [SerializeField] private AudioSource goAudio;
 
+    public GameObject CarControls => carControls;
+
     private void Start()
     {
         StartCoroutine(CountStart());
@@ -18,6 +20,7 @@ public class Countdown : MonoBehaviour
 
     IEnumerator CountStart()
     {
+        carControls.SetActive(false);
         yield return new WaitForSeconds(0.5f);
         countDown.GetComponent<Text>().text = "3";
         getReady.Play();
