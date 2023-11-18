@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class AICarController : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
-    public Transform target; // Set the target (e.g., player) in the Unity Editor
+    [SerializeField] private Transform target; // Set the target (e.g., player) in the Unity Editor
 
     void Start()
     {

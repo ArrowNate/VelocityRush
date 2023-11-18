@@ -7,41 +7,43 @@ public class LapComplete : MonoBehaviour
 {
     [SerializeField] private GameObject lapCompleteTrigger;
     [SerializeField] private GameObject halfLapTrigger;
-    [SerializeField] private GameObject minuteDisplay;
-    [SerializeField] private GameObject secondDisplay;
-    [SerializeField] private GameObject millisecondDisplay;
-    [SerializeField] private GameObject bestLapTimeDisplay;
+    [SerializeField] private Text minuteDisplay;
+    [SerializeField] private Text secondDisplay;
+    [SerializeField] private Text millisecondDisplay;
+    [SerializeField] private Text bestLapTimeDisplay;
+
+    private LapTimeManager lapTimeManager;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (LapTimeManager.SecondCount <= 9)
+        if (lapTimeManager.SecondCount <= 9)
         {
-            secondDisplay.GetComponent<Text>().text = "0" + LapTimeManager.SecondCount + ".";
+            secondDisplay.text = "0" + lapTimeManager.SecondCount + ".";
         }
         else
         {
-            secondDisplay.GetComponent<Text>().text = "" + LapTimeManager.SecondCount + ".";
+            secondDisplay.text = "" + lapTimeManager.SecondCount + ".";
         }
 
-        if (LapTimeManager.MinuteCount <= 9)
+        if (lapTimeManager.MinuteCount <= 9)
         {
-            minuteDisplay.GetComponent<Text>().text = "0" + LapTimeManager.MinuteCount + ".";
+            minuteDisplay.text = "0" + lapTimeManager.MinuteCount + ".";
         }
         else
         {
-            minuteDisplay.GetComponent<Text>().text = "" + LapTimeManager.MinuteCount + ".";
+            minuteDisplay.text = "" + lapTimeManager.MinuteCount + ".";
         }
 
-        millisecondDisplay.GetComponent<Text>().text = LapTimeManager.MilliDisplay;
+        millisecondDisplay.text = lapTimeManager.MilliDisplay;
 
         // Update best lap time
-        LapTimeManager.UpdateBestLapTime();
+        lapTimeManager.UpdateBestLapTime();
 
         // Reset the lap time
-        LapTimeManager.ResetLapTime();
+        lapTimeManager.ResetLapTime();
 
         // Display best lap time
-        bestLapTimeDisplay.GetComponent<Text>().text = "Best Lap: " + LapTimeManager.BestLapTime.ToString("F0");
+        bestLapTimeDisplay.text = "Best Lap: " + lapTimeManager.BestLapTime.ToString("F0");
 
         halfLapTrigger.SetActive(true);
         lapCompleteTrigger.SetActive(false);

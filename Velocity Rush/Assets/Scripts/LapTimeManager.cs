@@ -5,30 +5,30 @@ using UnityEngine.UI;
 
 public class LapTimeManager : MonoBehaviour
 {
-    [SerializeField] private GameObject minuteBox;
-    [SerializeField] private GameObject secondBox;
-    [SerializeField] private GameObject milliSecondBox;
-    [SerializeField] private GameObject bestLapTimeBox;
+    [SerializeField] private Text minuteBox;
+    [SerializeField] private Text secondBox;
+    [SerializeField] private Text milliSecondBox;
+    [SerializeField] private Text bestLapTimeBox;
 
-    private static int _minuteCount;
-    private static int _secondCount;
-    private static float _milliSecondCount;
-    private static string _milliDisplay;
+    private int _minuteCount;
+    private int _secondCount;
+    private float _milliSecondCount;
+    private string _milliDisplay;
 
-    private static float _bestLapTime = float.MaxValue; // Initialize to a very large value
+    private float _bestLapTime = float.MaxValue; // Initialize to a very large value
 
     // Expose properties for read-only access
-    public static int MinuteCount => _minuteCount;
-    public static int SecondCount => _secondCount;
-    public static float MilliSecondCount => _milliSecondCount;
-    public static string MilliDisplay => _milliDisplay;
-    public static float BestLapTime => _bestLapTime;
+    public int MinuteCount => _minuteCount;
+    public int SecondCount => _secondCount;
+    public float MilliSecondCount => _milliSecondCount;
+    public string MilliDisplay => _milliDisplay;
+    public float BestLapTime => _bestLapTime;
 
     private void Update()
     {
         _milliSecondCount += Time.deltaTime * 10;
         _milliDisplay = _milliSecondCount.ToString("F0");
-        milliSecondBox.GetComponent<Text>().text = "" + _milliDisplay;
+        milliSecondBox.text = "" + _milliDisplay;
 
         if (_milliSecondCount >= 10)
         {
@@ -38,11 +38,11 @@ public class LapTimeManager : MonoBehaviour
 
         if (_secondCount <= 9)
         {
-            secondBox.GetComponent<Text>().text = "0" + _secondCount + ".";
+            secondBox.text = "0" + _secondCount + ".";
         }
         else
         {
-            secondBox.GetComponent<Text>().text = "" + _secondCount + ".";
+            secondBox.text = "" + _secondCount + ".";
         }
 
         if (_secondCount >= 60)
@@ -53,19 +53,19 @@ public class LapTimeManager : MonoBehaviour
 
         if (_minuteCount <= 9)
         {
-            minuteBox.GetComponent<Text>().text = "0" + _minuteCount + ":";
+            minuteBox.text = "0" + _minuteCount + ":";
         }
         else
         {
-            minuteBox.GetComponent<Text>().text = "" + _minuteCount + ":";
+            minuteBox.text = "" + _minuteCount + ":";
         }
 
         // Update the best lap time display
-        bestLapTimeBox.GetComponent<Text>().text = "Best Lap: " + FormatTime(_bestLapTime);
+        bestLapTimeBox.text = "Best Lap: " + FormatTime(_bestLapTime);
     }
 
     // Reset lap time method
-    public static void ResetLapTime()
+    public void ResetLapTime()
     {
         _minuteCount = 0;
         _secondCount = 0;
@@ -73,7 +73,7 @@ public class LapTimeManager : MonoBehaviour
     }
 
     // Update best lap time method
-    public static void UpdateBestLapTime()
+    public void UpdateBestLapTime()
     {
         if (_milliSecondCount < _bestLapTime)
         {

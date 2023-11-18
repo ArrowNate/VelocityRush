@@ -20,6 +20,7 @@ public class Countdown : MonoBehaviour
 
     IEnumerator CountStart()
     {
+        lapTimer.SetActive(false);
         carControls.SetActive(false);
         yield return new WaitForSeconds(0.5f);
         countDown.GetComponent<Text>().text = "3";
