@@ -1,42 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
 public class AICarController : MonoBehaviour
 {
-    private NavMeshAgent navMeshAgent;
-    [SerializeField] private Transform target; // Set the target (e.g., player) in the Unity Editor
-
-    void Start()
-    {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-
-        if (target == null)
-        {
-            Debug.LogError("Target not assigned for AICarController");
-        }
-    }
+    [SerializeField] private Transform[] waypoints;
+    private int currentWaypointIndex = 0;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float rotationSpeed = 2f;
 
     void Update()
     {
-        if (target != null)
+        if (waypoints.Length == 0)
         {
-            SetDestination();
+            Debug.LogError("No waypoints assigned for AICarController");
+            return;
         }
+
+        NavigateToWaypoint();
     }
 
-    void SetDestination()
+    void NavigateToWaypoint()
     {
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(target.position, out hit, 1.0f, NavMesh.AllAreas))
+        Transform currentWaypoint = waypoints[currentWaypointIndex];
+        Vector3 direction = (currentWaypoint.position - transform.position).normalized;
+
+        // Move towards the waypoint
+        transform.Translate(direction * speed * Time.deltaTime, Space.World);
+
+        // Rotate towards the waypoint
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        // Check if the car is close to the current waypoint
+        float distanceToWaypoint = Vector3.Distance(transform.position, currentWaypoint.position);
+        if (distanceToWaypoint < 1f)
         {
-            navMeshAgent.SetDestination(hit.position);
-        }
-        else
-        {
-            Debug.LogError("Could not find a valid position on the NavMesh for the target.");
+            // Move to the next waypoint
+            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
         }
     }
 }
