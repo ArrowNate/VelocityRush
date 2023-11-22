@@ -25,7 +25,7 @@ public class AICarControllerSpline : MonoBehaviour
 
     void MoveAlongSpline()
     {
-        t += speed * Time.deltaTime / spline.length;
+        t += speed * Time.deltaTime / spline.Length;
 
         if (t > 1f)
         {
@@ -35,8 +35,11 @@ public class AICarControllerSpline : MonoBehaviour
         Vector3 position = spline.GetPoint(t);
         transform.position = position;
 
+        // Calculate the direction (tangent) at the current point on the spline
+        Vector3 direction = spline.GetTangent(t);
+
         // Rotate towards the next point on the spline
-        Quaternion targetRotation = Quaternion.LookRotation(spline.GetDirection(t));
+        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
         // Check if the car is close to the end of the spline
