@@ -5,10 +5,11 @@ using UnityEngine;
 public class CarControlActive : MonoBehaviour
 {
     [SerializeField] private GameObject prometeoCarControl;
+    [SerializeField] private GameObject aiCarControl;
 
     private void Start()
     {
-        /*PrometeoCarController controller = GetComponent<PrometeoCarController>();*/
         prometeoCarControl.GetComponent<PrometeoCarController>().enabled = true;
+        aiCarControl.GetComponent<AICarControllerSpline>().enabled = true;
     }
 }

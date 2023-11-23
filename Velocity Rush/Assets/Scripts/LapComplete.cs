@@ -10,7 +10,7 @@ public class LapComplete : MonoBehaviour
     [SerializeField] private Text minuteDisplay;
     [SerializeField] private Text secondDisplay;
     [SerializeField] private Text millisecondDisplay;
-    [SerializeField] private Text bestLapTimeDisplay;
+    //[SerializeField] private Text bestLapTimeDisplay;
 
     private LapTimeManager lapTimeManager;
 
@@ -37,13 +37,13 @@ public class LapComplete : MonoBehaviour
         millisecondDisplay.text = lapTimeManager.MilliDisplay;
 
         // Update best lap time
-        lapTimeManager.UpdateBestLapTime();
+        //lapTimeManager.UpdateBestLapTime();
 
         // Reset the lap time
         lapTimeManager.ResetLapTime();
 
         // Display best lap time
-        bestLapTimeDisplay.text = "Best Lap: " + lapTimeManager.BestLapTime.ToString("F0");
+        //bestLapTimeDisplay.text = "Best Lap: " + lapTimeManager.BestLapTime.ToString("F0");
 
         halfLapTrigger.SetActive(true);
         lapCompleteTrigger.SetActive(false);
